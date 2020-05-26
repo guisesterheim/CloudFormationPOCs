@@ -4,22 +4,22 @@ Description: >
 
 Parameters:
   VpcCIDR:
-    Description: Please enter the CIDR for this VPC
+    Description: CIDR for this VPC
     Type: String
-    Default: 10.7.0.0/16
+    Default: 10.1.0.0/16
 
   PublicSubnet1CIDR:
-    Description: Please enter the CIDR for the public subnet in the first Availability Zone
+    Description: CIDR for the public subnet in the first Availability Zone
     Type: String
-    Default: 10.7.1.0/24
+    Default: 10.1.1.0/24
 
   PublicSubnet2CIDR:
-    Description: Please enter the CIDR for the public subnet in the second Availability Zone
+    Description: CIDR for the public subnet in the second Availability Zone
     Type: String
-    Default: 10.7.2.0/24
+    Default: 10.1.2.0/24
 
 Resources:
-  VPC:
+  MyVPC:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: !Ref VpcCIDR
@@ -47,7 +47,7 @@ Resources:
   PublicSubnet1:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref VPC
+      VpcId: !Ref MyVPC
       AvailabilityZone: !Select [0, !GetAZs ""]
       CidrBlock: !Ref PublicSubnet1CIDR
       MapPublicIpOnLaunch: true
@@ -59,7 +59,7 @@ Resources:
   PublicSubnet2:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref VPC
+      VpcId: !Ref MyVPC
       AvailabilityZone: !Select [1, !GetAZs ""]
       CidrBlock: !Ref PublicSubnet2CIDR
       MapPublicIpOnLaunch: true
@@ -71,7 +71,7 @@ Resources:
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
-      VpcId: !Ref VPC
+      VpcId: !Ref MyVPC
       Tags:
         -
           Key: Name
@@ -100,7 +100,7 @@ Resources:
 Outputs:
   VPC:
     Description: VPC ID
-    Value: !Ref VPC
+    Value: !Ref MyVPC
     Export:
       Name:
         !Sub "${AWS::StackName}-VPC"
