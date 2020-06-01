@@ -42,7 +42,7 @@ Resources:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       InternetGatewayId: !Ref InternetGateway
-      VpcId: !Ref VPC
+      VpcId: !Ref MyVPC
 
   PublicSubnet1:
     Type: AWS::EC2::Subnet
@@ -98,7 +98,7 @@ Resources:
       SubnetId: !Ref PublicSubnet2 
 
 Outputs:
-  VPC:
+  MyVPC:
     Description: VPC ID
     Value: !Ref MyVPC
     Export:
