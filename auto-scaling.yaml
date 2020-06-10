@@ -88,7 +88,7 @@ Resources:
     Description: The nested stack containing the application load balancer.
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://s3.amazonaws.com/architecting-operational-excellence-aws/load-balancer.yaml
+      TemplateURL: https://cloudformation-stack-files-lab-pluralsight.s3.amazonaws.com/load-balancer.yaml
       Parameters:
         VPCStackName: !Ref VPCStackName
 
